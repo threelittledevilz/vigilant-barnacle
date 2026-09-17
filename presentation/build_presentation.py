@@ -17,7 +17,9 @@
   preorder_new_year_corporate_2025.pptx  — сама презентация
   scene.json                             — манифест геометрии (для превью/ревью)
 
-Требования: pip install python-pptx
+Требования: pip install python-pptx fonttools
+Шрифты Montserrat/Inter вшиваются в сам файл — PowerPoint/Keynote откроют
+деки идентично, даже если на машине шрифты не установлены.
 """
 
 from pptx import Presentation
@@ -192,6 +194,13 @@ def text(slide, x, y, w, h, paras, anchor=MSO_ANCHOR.TOP, wrap=True):
             f.color.rgb = RGBColor(r["c"][0], r["c"][1], r["c"][2])
             rPr = run._r.get_or_add_rPr()
             rPr.set("spc", str(int(r.get("spc", 0) * 100)))
+            # фиксируем семейство и для complex-script / east-asian проходов —
+            # кириллица не уедет в fallback-шрифт на любой системе
+            for tag in ("a:ea", "a:cs"):
+                el = rPr.find(qn(tag))
+                if el is None:
+                    el = etree.SubElement(rPr, qn(tag))
+                el.set("typeface", r["f"])
             if r.get("a") is not None and r["a"] != 100:
                 sf = rPr.find(qn("a:solidFill"))
                 if sf is not None:
@@ -636,6 +645,113 @@ def slide_08(prs):
 
 
 # ---------------------------------------------------------------------------
+# ВШИВКА ШРИФТОВ (OOXML embeddedFontLst) — деки идентичен на любой машине
+# ---------------------------------------------------------------------------
+def _obfuscate(data):
+    """OOXML-обфускация шрифта: 4 байта ключа + XOR с ключом."""
+    key = os.urandom(4)
+    out = bytearray(key)
+    for i, b in enumerate(data):
+        out.append(b ^ key[i % 4])
+    return bytes(out)
+
+
+def embed_fonts(pptx_path):
+    """Подсеты Montserrat/Inter встраиваются прямо в PPTX (ppt/fonts/*.fdata)."""
+    import io
+    import re
+    import zipfile
+    from fontTools.ttLib import TTFont
+    from fontTools.subset import Options, Subsetter
+
+    # все символы, используемые в дэке
+    chars = set()
+    for s in SCENE["slides"]:
+        for t in s["texts"]:
+            for p in t["paras"]:
+                for r in p["runs"]:
+                    chars.update(r["t"])
+    chars.add(" ")
+    text = "".join(sorted(chars))
+
+    here = os.path.dirname(os.path.abspath(__file__))
+    src = {
+        ("Montserrat", "regular"): "assets/fonts/Montserrat_400Regular.ttf",
+        ("Montserrat", "bold"): "assets/fonts/Montserrat_700Bold.ttf",
+        ("Inter", "regular"): "assets/fonts/Inter_400Regular.ttf",
+        ("Inter", "bold"): "assets/fonts/Inter_700Bold.ttf",
+    }
+    blobs = []
+    for (fam, wgt), rel in src.items():
+        f = TTFont(os.path.join(here, rel))
+        opts = Options()
+        opts.notdef_outline = True
+        opts.recalc_bounds = True
+        sub = Subsetter(options=opts)
+        sub.populate(text=text)
+        sub.subset(f)
+        buf = io.BytesIO()
+        f.save(buf)
+        blobs.append((fam, wgt, _obfuscate(buf.getvalue())))
+
+    REL_NS = "{http://schemas.openxmlformats.org/package/2006/relationships}"
+    FONT_REL = ("http://schemas.openxmlformats.org/officeDocument/2006/"
+                "relationships/font")
+
+    with zipfile.ZipFile(pptx_path) as z:
+        pres_el = etree.fromstring(z.read("ppt/presentation.xml"))
+        rels_el = etree.fromstring(z.read("ppt/_rels/presentation.xml.rels"))
+
+    ids = [int(m.group(1)) for el in rels_el
+           for m in [re.match(r"rId(\d+)$", el.get("Id") or "")] if m]
+    next_id = max(ids, default=0) + 1
+    entries = []
+    for i, (fam, wgt, fdata) in enumerate(blobs, 1):
+        rid = "rId%d" % next_id
+        next_id += 1
+        rel = etree.SubElement(rels_el, REL_NS + "Relationship")
+        rel.set("Id", rid)
+        rel.set("Type", FONT_REL)
+        rel.set("Target", "../fonts/font%d.fdata" % i)
+        entries.append((fam, wgt, rid, fdata))
+
+    if pres_el.find(qn("p:embeddedFontLst")) is None:
+        efl = etree.Element(qn("p:embeddedFontLst"))
+        for fam, wgt, rid, _ in entries:
+            ef = etree.SubElement(efl, qn("p:embeddedFont"))
+            fe = etree.SubElement(ef, qn("p:font"))
+            fe.set("typeface", fam)
+            fe.set("pitchFamily", "34")
+            fe.set("charset", "0")
+            we = etree.SubElement(ef, qn("p:" + wgt))
+            we.set(qn("r:id"), rid)
+        anchor = pres_el.find(qn("p:notesSz"))
+        if anchor is None:
+            anchor = pres_el.find(qn("p:sldSz"))
+        anchor.addnext(efl)
+
+    new_pres = etree.tostring(pres_el, xml_declaration=True,
+                              encoding="UTF-8", standalone=True)
+    new_rels = etree.tostring(rels_el, xml_declaration=True,
+                              encoding="UTF-8", standalone=True)
+
+    tmp = pptx_path + ".tmp"
+    with zipfile.ZipFile(pptx_path) as zin, \
+            zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED) as zout:
+        for item in zin.infolist():
+            data = zin.read(item.filename)
+            if item.filename == "ppt/presentation.xml":
+                data = new_pres
+            elif item.filename == "ppt/_rels/presentation.xml.rels":
+                data = new_rels
+            zout.writestr(item, data)
+        for i, (_, _, _, fdata) in enumerate(entries, 1):
+            zout.writestr("ppt/fonts/font%d.fdata" % i, fdata)
+    os.replace(tmp, pptx_path)
+    print("fonts embedded: %s" % ", ".join(f[0] + "/" + f[1] for f in entries))
+
+
+# ---------------------------------------------------------------------------
 # СБОРКА
 # ---------------------------------------------------------------------------
 def build(out_pptx, out_scene):
@@ -656,6 +772,7 @@ def build(out_pptx, out_scene):
     slide_08(prs)
 
     prs.save(out_pptx)
+    embed_fonts(out_pptx)
     with open(out_scene, "w", encoding="utf-8") as fh:
         json.dump(SCENE, fh, ensure_ascii=False, indent=1)
     print("OK  ->", out_pptx)
