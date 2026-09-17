@@ -224,6 +224,20 @@ def diamond(slide, cx, cy, s, c=GOLD, a=100):
     return box(slide, MSO_SHAPE.DIAMOND, cx - s / 2, cy - s / 2, s, s, fill=c, fill_a=a)
 
 
+LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                         "assets", "logo_white.png")
+
+
+def logo(slide, x, y, h):
+    """Знак «Кьево» (белый, прозрачный фон). Квадратная форма: h — высота."""
+    pic = slide.shapes.add_picture(LOGO_PATH, Inches(x), Inches(y), Inches(h), Inches(h))
+    pic.shadow.inherit = False
+    _sl()["pics"].append({"x": x, "y": y, "w": h, "h": h,
+                          "src": os.path.relpath(LOGO_PATH,
+                                                 os.path.dirname(os.path.abspath(__file__)))})
+    return pic
+
+
 # ---------------------------------------------------------------------------
 # СОВМЕСТНЫЕ ЭЛЕМЕНТЫ СЛАЙДОВ 2–8 (единый брендинг)
 # ---------------------------------------------------------------------------
@@ -231,18 +245,14 @@ def base_slide(prs, idx):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = MIDNIGHT
-    SCENE["slides"].append({"idx": idx, "shapes": [], "texts": []})
+    SCENE["slides"].append({"idx": idx, "shapes": [], "texts": [], "pics": []})
     # Фоновый вертикальный градиент (глубина, без «клипарта»)
     box(slide, MSO_SHAPE.RECTANGLE, 0, 0, W, H,
         grad=[(0, "111A30"), (55, "0B101F"), (100, "080C16")])
-    # Шапка: оверлей-метка слева, место под логотип справа, золотая линия
+    # Шапка: оверлей-метка слева, логотип справа, золотая линия
     text(slide, 0.9, 0.52, 5.5, 0.3,
          [{"runs": [P("МОСКВА · СЕЗОН 2024–2025", 8, GRAY, F_DISPLAY, spc=350, a=70)]}])
-    logo = box(slide, MSO_SHAPE.RECTANGLE, 10.73, 0.4, 1.7, 0.52,
-               line=GOLD, line_a=45, line_w=0.75)
-    text(slide, 10.73, 0.4, 1.7, 0.52,
-         [{"runs": [P("ЛОГОТИП", 7.5, GRAY, F_DISPLAY, b=True, spc=400, a=85)],
-           "align": PP_ALIGN.CENTER}], anchor=MSO_ANCHOR.MIDDLE)
+    logo(slide, 12.03, 0.42, 0.4)
     line_h(slide, 0.9, HDR_Y, W - ML - MR, GOLD, 22)
     # Подвал: линия, номер слайда, подпись бренда
     line_h(slide, 0.9, FOOT_Y, W - ML - MR, WHITE, 10)
@@ -285,7 +295,7 @@ def slide_01(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = MIDNIGHT
-    SCENE["slides"].append({"idx": 1, "shapes": [], "texts": []})
+    SCENE["slides"].append({"idx": 1, "shapes": [], "texts": [], "pics": []})
     box(slide, MSO_SHAPE.RECTANGLE, 0, 0, W, H,
         grad=[(0, "111A30"), (55, "0B101F"), (100, "080C16")])
 
@@ -302,10 +312,7 @@ def slide_01(prs):
         box(slide, MSO_SHAPE.RECTANGLE, x, y0, 0.011, 0.22, fill=GOLD, fill_a=35)
 
     # Логотип — крупно по центру сверху
-    box(slide, MSO_SHAPE.RECTANGLE, 5.27, 0.85, 2.8, 0.8, line=GOLD, line_a=55, line_w=1.0)
-    text(slide, 5.27, 0.85, 2.8, 0.8,
-         [{"runs": [P("ЛОГОТИП", 13, WHITE, F_DISPLAY, b=True, spc=600, a=85)],
-           "align": PP_ALIGN.CENTER}], anchor=MSO_ANCHOR.MIDDLE)
+    logo(slide, (W - 0.95) / 2, 0.68, 0.95)
 
     # Центральный блок
     diamond(slide, W / 2, 2.22, 0.09, GOLD, 90)

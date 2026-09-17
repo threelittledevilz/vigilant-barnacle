@@ -225,27 +225,6 @@
      "grad": null
     },
     {
-     "kind": "rect",
-     "x": 5.27,
-     "y": 0.85,
-     "w": 2.8,
-     "h": 0.8,
-     "rot": 0,
-     "fill": null,
-     "line": [
-      [
-       212,
-       175,
-       55
-      ],
-      55,
-      1.0,
-      null
-     ],
-     "radius": null,
-     "grad": null
-    },
-    {
      "kind": "diamond",
      "x": 6.6215,
      "y": 2.1750000000000003,
@@ -313,38 +292,6 @@
     }
    ],
    "texts": [
-    {
-     "x": 5.27,
-     "y": 0.85,
-     "w": 2.8,
-     "h": 0.8,
-     "anchor": "middle",
-     "wrap": true,
-     "paras": [
-      {
-       "runs": [
-        {
-         "t": "ЛОГОТИП",
-         "px": 13,
-         "c": [
-          255,
-          255,
-          255,
-          85
-         ],
-         "f": "Montserrat",
-         "b": true,
-         "spc": 600,
-         "a": 85
-        }
-       ],
-       "align": "center",
-       "ls": null,
-       "before": null,
-       "after": null
-      }
-     ]
-    },
     {
      "x": 1.42,
      "y": 2.44,
@@ -495,6 +442,15 @@
       }
      ]
     }
+   ],
+   "pics": [
+    {
+     "x": 6.1915000000000004,
+     "y": 0.68,
+     "w": 0.95,
+     "h": 0.95,
+     "src": "assets/logo_white.png"
+    }
    ]
   },
   {
@@ -524,27 +480,6 @@
        "080C16"
       ]
      ]
-    },
-    {
-     "kind": "rect",
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "rot": 0,
-     "fill": null,
-     "line": [
-      [
-       212,
-       175,
-       55
-      ],
-      45,
-      0.75,
-      null
-     ],
-     "radius": null,
-     "grad": null
     },
     {
      "kind": "rect",
@@ -930,38 +865,6 @@
         }
        ],
        "align": "left",
-       "ls": null,
-       "before": null,
-       "after": null
-      }
-     ]
-    },
-    {
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "anchor": "middle",
-     "wrap": true,
-     "paras": [
-      {
-       "runs": [
-        {
-         "t": "ЛОГОТИП",
-         "px": 7.5,
-         "c": [
-          160,
-          174,
-          192,
-          85
-         ],
-         "f": "Montserrat",
-         "b": true,
-         "spc": 400,
-         "a": 85
-        }
-       ],
-       "align": "center",
        "ls": null,
        "before": null,
        "after": null
@@ -1534,6 +1437,15 @@
       }
      ]
     }
+   ],
+   "pics": [
+    {
+     "x": 12.03,
+     "y": 0.42,
+     "w": 0.4,
+     "h": 0.4,
+     "src": "assets/logo_white.png"
+    }
    ]
   },
   {
@@ -1563,27 +1475,6 @@
        "080C16"
       ]
      ]
-    },
-    {
-     "kind": "rect",
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "rot": 0,
-     "fill": null,
-     "line": [
-      [
-       212,
-       175,
-       55
-      ],
-      45,
-      0.75,
-      null
-     ],
-     "radius": null,
-     "grad": null
     },
     {
      "kind": "rect",
@@ -1738,38 +1629,6 @@
         }
        ],
        "align": "left",
-       "ls": null,
-       "before": null,
-       "after": null
-      }
-     ]
-    },
-    {
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "anchor": "middle",
-     "wrap": true,
-     "paras": [
-      {
-       "runs": [
-        {
-         "t": "ЛОГОТИП",
-         "px": 7.5,
-         "c": [
-          160,
-          174,
-          192,
-          85
-         ],
-         "f": "Montserrat",
-         "b": true,
-         "spc": 400,
-         "a": 85
-        }
-       ],
-       "align": "center",
        "ls": null,
        "before": null,
        "after": null
@@ -2096,6 +1955,15 @@
       }
      ]
     }
+   ],
+   "pics": [
+    {
+     "x": 12.03,
+     "y": 0.42,
+     "w": 0.4,
+     "h": 0.4,
+     "src": "assets/logo_white.png"
+    }
    ]
   },
   {
@@ -2125,27 +1993,6 @@
        "080C16"
       ]
      ]
-    },
-    {
-     "kind": "rect",
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "rot": 0,
-     "fill": null,
-     "line": [
-      [
-       212,
-       175,
-       55
-      ],
-      45,
-      0.75,
-      null
-     ],
-     "radius": null,
-     "grad": null
     },
     {
      "kind": "rect",
@@ -2373,38 +2220,6 @@
         }
        ],
        "align": "left",
-       "ls": null,
-       "before": null,
-       "after": null
-      }
-     ]
-    },
-    {
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "anchor": "middle",
-     "wrap": true,
-     "paras": [
-      {
-       "runs": [
-        {
-         "t": "ЛОГОТИП",
-         "px": 7.5,
-         "c": [
-          160,
-          174,
-          192,
-          85
-         ],
-         "f": "Montserrat",
-         "b": true,
-         "spc": 400,
-         "a": 85
-        }
-       ],
-       "align": "center",
        "ls": null,
        "before": null,
        "after": null
@@ -2955,6 +2770,15 @@
       }
      ]
     }
+   ],
+   "pics": [
+    {
+     "x": 12.03,
+     "y": 0.42,
+     "w": 0.4,
+     "h": 0.4,
+     "src": "assets/logo_white.png"
+    }
    ]
   },
   {
@@ -2984,27 +2808,6 @@
        "080C16"
       ]
      ]
-    },
-    {
-     "kind": "rect",
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "rot": 0,
-     "fill": null,
-     "line": [
-      [
-       212,
-       175,
-       55
-      ],
-      45,
-      0.75,
-      null
-     ],
-     "radius": null,
-     "grad": null
     },
     {
      "kind": "rect",
@@ -3216,38 +3019,6 @@
         }
        ],
        "align": "left",
-       "ls": null,
-       "before": null,
-       "after": null
-      }
-     ]
-    },
-    {
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "anchor": "middle",
-     "wrap": true,
-     "paras": [
-      {
-       "runs": [
-        {
-         "t": "ЛОГОТИП",
-         "px": 7.5,
-         "c": [
-          160,
-          174,
-          192,
-          85
-         ],
-         "f": "Montserrat",
-         "b": true,
-         "spc": 400,
-         "a": 85
-        }
-       ],
-       "align": "center",
        "ls": null,
        "before": null,
        "after": null
@@ -3702,6 +3473,15 @@
       }
      ]
     }
+   ],
+   "pics": [
+    {
+     "x": 12.03,
+     "y": 0.42,
+     "w": 0.4,
+     "h": 0.4,
+     "src": "assets/logo_white.png"
+    }
    ]
   },
   {
@@ -3731,27 +3511,6 @@
        "080C16"
       ]
      ]
-    },
-    {
-     "kind": "rect",
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "rot": 0,
-     "fill": null,
-     "line": [
-      [
-       212,
-       175,
-       55
-      ],
-      45,
-      0.75,
-      null
-     ],
-     "radius": null,
-     "grad": null
     },
     {
      "kind": "rect",
@@ -3977,38 +3736,6 @@
         }
        ],
        "align": "left",
-       "ls": null,
-       "before": null,
-       "after": null
-      }
-     ]
-    },
-    {
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "anchor": "middle",
-     "wrap": true,
-     "paras": [
-      {
-       "runs": [
-        {
-         "t": "ЛОГОТИП",
-         "px": 7.5,
-         "c": [
-          160,
-          174,
-          192,
-          85
-         ],
-         "f": "Montserrat",
-         "b": true,
-         "spc": 400,
-         "a": 85
-        }
-       ],
-       "align": "center",
        "ls": null,
        "before": null,
        "after": null
@@ -4687,6 +4414,15 @@
       }
      ]
     }
+   ],
+   "pics": [
+    {
+     "x": 12.03,
+     "y": 0.42,
+     "w": 0.4,
+     "h": 0.4,
+     "src": "assets/logo_white.png"
+    }
    ]
   },
   {
@@ -4716,27 +4452,6 @@
        "080C16"
       ]
      ]
-    },
-    {
-     "kind": "rect",
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "rot": 0,
-     "fill": null,
-     "line": [
-      [
-       212,
-       175,
-       55
-      ],
-      45,
-      0.75,
-      null
-     ],
-     "radius": null,
-     "grad": null
     },
     {
      "kind": "rect",
@@ -4889,38 +4604,6 @@
         }
        ],
        "align": "left",
-       "ls": null,
-       "before": null,
-       "after": null
-      }
-     ]
-    },
-    {
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "anchor": "middle",
-     "wrap": true,
-     "paras": [
-      {
-       "runs": [
-        {
-         "t": "ЛОГОТИП",
-         "px": 7.5,
-         "c": [
-          160,
-          174,
-          192,
-          85
-         ],
-         "f": "Montserrat",
-         "b": true,
-         "spc": 400,
-         "a": 85
-        }
-       ],
-       "align": "center",
        "ls": null,
        "before": null,
        "after": null
@@ -5247,6 +4930,15 @@
       }
      ]
     }
+   ],
+   "pics": [
+    {
+     "x": 12.03,
+     "y": 0.42,
+     "w": 0.4,
+     "h": 0.4,
+     "src": "assets/logo_white.png"
+    }
    ]
   },
   {
@@ -5276,27 +4968,6 @@
        "080C16"
       ]
      ]
-    },
-    {
-     "kind": "rect",
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "rot": 0,
-     "fill": null,
-     "line": [
-      [
-       212,
-       175,
-       55
-      ],
-      45,
-      0.75,
-      null
-     ],
-     "radius": null,
-     "grad": null
     },
     {
      "kind": "rect",
@@ -5515,38 +5186,6 @@
         }
        ],
        "align": "left",
-       "ls": null,
-       "before": null,
-       "after": null
-      }
-     ]
-    },
-    {
-     "x": 10.73,
-     "y": 0.4,
-     "w": 1.7,
-     "h": 0.52,
-     "anchor": "middle",
-     "wrap": true,
-     "paras": [
-      {
-       "runs": [
-        {
-         "t": "ЛОГОТИП",
-         "px": 7.5,
-         "c": [
-          160,
-          174,
-          192,
-          85
-         ],
-         "f": "Montserrat",
-         "b": true,
-         "spc": 400,
-         "a": 85
-        }
-       ],
-       "align": "center",
        "ls": null,
        "before": null,
        "after": null
@@ -6002,6 +5641,15 @@
        "after": null
       }
      ]
+    }
+   ],
+   "pics": [
+    {
+     "x": 12.03,
+     "y": 0.42,
+     "w": 0.4,
+     "h": 0.4,
+     "src": "assets/logo_white.png"
     }
    ]
   }

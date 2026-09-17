@@ -266,6 +266,11 @@ def render_scene(scene, outdir):
             draw_shape(img, sh)
         for tx in s["texts"]:
             draw_text(img, tx)
+        for pc in s.get("pics", []):
+            p = os.path.join(HERE, pc["src"])
+            im = Image.open(p).convert("RGBA")
+            im = im.resize((int(px(pc["w"])), int(px(pc["h"]))), Image.LANCZOS)
+            img.paste(im, (int(px(pc["x"])), int(px(pc["y"]))), im)
         p = os.path.join(outdir, "slide-%02d.png" % s["idx"])
         img.convert("RGB").save(p, "PNG")
         imgs.append(img.convert("RGB"))
