@@ -9,6 +9,7 @@ Premium-сегмент: Black Tie / Vogue / Met Gala. Никаких клипа�
 | Файл | Назначение |
 |---|---|
 | `preorder_new_year_corporate_2025.pptx` | **Готовая презентация** (скачать и открыть) |
+| `preorder_new_year_corporate_2025.pdf` | **PDF-версия** (8 страниц, 16:9, 2880×1620) |
 | `build_presentation.py` | Код генератора на python-pptx (весь дизайн в одном файле) |
 | `make_logo.py` | Векторная реконструкция знака «Кьево» → PNG (белый / тёмный) |
 | `assets/` | `logo_white.png` (вшит в дэк), `logo_dark.png` (для светлых носителей) |
@@ -64,6 +65,15 @@ pip install python-pptx
 python build_presentation.py
 # -> preorder_new_year_corporate_2025.pptx + scene.json
 ```
+
+**PDF** собирается рендером той же геометрии (шрифты Montserrat/Inter, 2×):
+```bash
+pip install pillow fonttools
+python render_preview.py scene.json /tmp/hi --scale 216 \
+    --pdf preorder_new_year_corporate_2025.pdf
+```
+PDF — растровый (по 2880×1620 на страницу); если нужен редактируемый
+векторный PDF со слоем текста, используйте «Экспорт в PDF» из PowerPoint.
 
 Шрифты **Montserrat** и **Inter** должны быть установлены на машине,
 где открывается файл (иначе PowerPoint подставит системный аналог).

@@ -254,10 +254,12 @@ def draw_text(img, t):
             y0 += h
         elif item[0] == "line_h":
             if item[4]:
-                y0 += item[4] * 2
+                y0 += item[4] * SCALE / 72.0
 
 
-def render_scene(scene, outdir):
+def render_scene(scene, outdir, scale=144.0, pdf_path=None):
+    global SCALE
+    SCALE = scale
     os.makedirs(outdir, exist_ok=True)
     imgs = []
     for s in scene["slides"]:
@@ -286,10 +288,20 @@ def render_scene(scene, outdir):
     sp = os.path.join(outdir, "contact-sheet.png")
     sheet.save(sp, "PNG")
     print("preview ->", sp)
+    if pdf_path:
+        imgs[0].save(pdf_path, "PDF", save_all=True,
+                     append_images=imgs[1:], resolution=scale)
+        print("pdf     ->", pdf_path)
 
 
 if __name__ == "__main__":
-    scene_path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, "scene.json")
-    outdir = sys.argv[2] if len(sys.argv) > 2 else os.path.join(HERE, "previews")
-    with open(scene_path, encoding="utf-8") as fh:
-        render_scene(json.load(fh), outdir)
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("scene", nargs="?", default=os.path.join(HERE, "scene.json"))
+    ap.add_argument("outdir", nargs="?", default=os.path.join(HERE, "previews"))
+    ap.add_argument("--pdf", default=None, help="path to output PDF")
+    ap.add_argument("--scale", type=float, default=144.0,
+                    help="px per inch (144 = 1920x1080, 216 = 2880x1620)")
+    args = ap.parse_args()
+    with open(args.scene, encoding="utf-8") as fh:
+        render_scene(json.load(fh), args.outdir, scale=args.scale, pdf_path=args.pdf)
